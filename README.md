@@ -1,1 +1,3 @@
-# Meus-Estudos-em-CSS-HTML-Javascript
+Inicializando meus estudos em linguagens voltadas a web design
+
+
