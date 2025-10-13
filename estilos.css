@@ -1,0 +1,24 @@
+body {
+    background-color: #ffffff;
+    font-family: 'Times New Roman', Times, serif, sans-serif;
+}
+
+h1 {
+    color: rgb(0, 0, 0);
+}
+
+p {
+    color: #000000;
+}
+
+li{
+    color:#ff0000
+}
+
+ol{
+    color:#0eac00
+}
+
+ul{
+    color:#bd0074
+}
