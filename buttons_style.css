@@ -1,0 +1,14 @@
+body{
+
+    background-color: rgb(255, 194, 194);
+    font-family: 'Times New Roman', Times, serif, sans-serif;
+}
+
+h1{ 
+    color: rgb(161, 0, 0);
+}
+
+button{
+    background-color: aqua;
+    color:rgb(161, 0, 0)
+}   
