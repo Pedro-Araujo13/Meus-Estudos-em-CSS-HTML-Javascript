@@ -1,0 +1,46 @@
+body{
+    background-color: rgb(231, 231, 231);
+}
+header{
+    text-align: center;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+}
+.geral{
+    display:flex;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 50px;
+    flex-wrap: wrap;
+    padding: 0px;
+}
+
+.identidade{
+    text-align: center;
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: aliceblue;
+    width: 800px;
+    padding: 25px;
+    border-radius: 25px;
+    margin: 50px auto;
+
+}
+
+.identidade ul{
+    list-style-position: inside;
+    padding-left: 0;
+    text-align:left;
+    display: inline-block;
+    padding: 15px;
+
+}
+
+.listas{
+    display: flex;
+    justify-content: left;
+    gap: 50px;
+}
+
+.extra{
+    text-align: left;
+    
+}
