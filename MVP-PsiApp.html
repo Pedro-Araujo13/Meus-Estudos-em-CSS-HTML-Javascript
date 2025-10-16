@@ -1,0 +1,1702 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="h-full">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PsiCare - Plataforma para Psicólogos</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'sage': '#F0F4F0',
+                        'sage-dark': '#E8F5E8',
+                        'warm-gray': '#F8F9FA',
+                        'soft-emerald': '#ECFDF5',
+                        'soft-emerald-dark': '#D1FAE5',
+                        'cream': '#FFFBF5',
+                        'soft-teal': '#F0FDFA',
+                        'soft-rose': '#FFF7ED'
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            box-sizing: border-box;
+        }
+        
+        .fade-in {
+            animation: fadeIn 0.3s ease-in;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .hover-lift {
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        
+        .hover-lift:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body class="h-full bg-warm-gray font-sans">
+    <!-- Tela de Login -->
+    <div id="login-screen" class="min-h-full flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-md w-full space-y-8">
+            <!-- Logo e Título -->
+            <div class="text-center">
+                <div class="mx-auto w-16 h-16 bg-gradient-to-br from-emerald-400 to-teal-500 rounded-2xl flex items-center justify-center mb-6">
+                    <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
+                    </svg>
+                </div>
+                <h2 class="text-3xl font-bold text-gray-800 mb-2">Bem-vindo ao PsiCare</h2>
+                <p class="text-gray-600">Acesse sua plataforma profissional</p>
+            </div>
+
+            <!-- Formulário de Login -->
+            <div class="bg-white rounded-2xl shadow-lg border border-gray-200 p-8">
+                <form onsubmit="handleLogin(event)" class="space-y-6">
+                    <div>
+                        <label for="email" class="block text-sm font-medium text-gray-700 mb-2">
+                            Email profissional
+                        </label>
+                        <div class="relative">
+                            <input 
+                                id="email" 
+                                name="email" 
+                                type="email" 
+                                required 
+                                class="w-full px-4 py-3 pl-12 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition-colors"
+                                placeholder="seu@email.com"
+                            >
+                            <svg class="absolute left-4 top-3.5 w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 12a4 4 0 10-8 0 4 4 0 008 0zm0 0v1.5a2.5 2.5 0 005 0V12a9 9 0 10-9 9m4.5-1.206a8.959 8.959 0 01-4.5 1.207"></path>
+                            </svg>
+                        </div>
+                    </div>
+
+                    <div>
+                        <label for="password" class="block text-sm font-medium text-gray-700 mb-2">
+                            Senha
+                        </label>
+                        <div class="relative">
+                            <input 
+                                id="password" 
+                                name="password" 
+                                type="password" 
+                                required 
+                                class="w-full px-4 py-3 pl-12 pr-12 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition-colors"
+                                placeholder="••••••••"
+                            >
+                            <svg class="absolute left-4 top-3.5 w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path>
+                            </svg>
+                            <button 
+                                type="button" 
+                                onclick="togglePassword()"
+                                class="absolute right-4 top-3.5 text-gray-400 hover:text-gray-600"
+                            >
+                                <svg id="eye-icon" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="flex items-center justify-between">
+                        <label class="flex items-center">
+                            <input type="checkbox" class="rounded border-gray-300 text-emerald-600 focus:ring-emerald-500">
+                            <span class="ml-2 text-sm text-gray-700">Lembrar de mim</span>
+                        </label>
+                        <a href="#" class="text-sm text-emerald-600 hover:text-emerald-700 font-medium">
+                            Esqueceu a senha?
+                        </a>
+                    </div>
+
+                    <button 
+                        type="submit" 
+                        class="w-full bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 text-white font-medium py-3 px-4 rounded-lg transition-all duration-200 transform hover:scale-105 focus:ring-4 focus:ring-emerald-200"
+                    >
+                        Entrar na Plataforma
+                    </button>
+                </form>
+
+                <!-- Divider -->
+                <div class="mt-6 relative">
+                    <div class="absolute inset-0 flex items-center">
+                        <div class="w-full border-t border-gray-300"></div>
+                    </div>
+                    <div class="relative flex justify-center text-sm">
+                        <span class="px-2 bg-white text-gray-500">Ou continue com</span>
+                    </div>
+                </div>
+
+                <!-- Login Social -->
+                <div class="mt-6 grid grid-cols-2 gap-3">
+                    <button class="w-full inline-flex justify-center py-2.5 px-4 border border-gray-300 rounded-lg bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 transition-colors">
+                        <svg class="w-5 h-5 text-red-500" viewBox="0 0 24 24">
+                            <path fill="currentColor" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+                            <path fill="currentColor" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+                            <path fill="currentColor" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
+                            <path fill="currentColor" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
+                        </svg>
+                        <span class="ml-2">Google</span>
+                    </button>
+                    
+                    <button class="w-full inline-flex justify-center py-2.5 px-4 border border-gray-300 rounded-lg bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 transition-colors">
+                        <svg class="w-5 h-5 text-blue-600" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+                        </svg>
+                        <span class="ml-2">Facebook</span>
+                    </button>
+                </div>
+
+                <!-- Cadastro -->
+                <div class="mt-6 text-center">
+                    <p class="text-sm text-gray-600">
+                        Ainda não tem uma conta? 
+                        <a href="#" class="text-emerald-600 hover:text-emerald-700 font-medium">
+                            Cadastre-se gratuitamente
+                        </a>
+                    </p>
+                </div>
+            </div>
+
+            <!-- Informações de Segurança -->
+            <div class="text-center">
+                <div class="flex items-center justify-center space-x-2 text-sm text-gray-500">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path>
+                    </svg>
+                    <span>Seus dados estão protegidos com criptografia SSL</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Dashboard Principal (inicialmente oculto) -->
+    <div id="main-app" class="flex h-full hidden">
+        <!-- Menu Lateral -->
+        <nav class="w-64 bg-white shadow-lg border-r border-gray-200">
+            <div class="p-6">
+                <div class="flex items-center space-x-3 mb-8">
+                    <div class="w-10 h-10 bg-gradient-to-br from-emerald-400 to-teal-500 rounded-lg flex items-center justify-center">
+                        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
+                        </svg>
+                    </div>
+                    <div>
+                        <h1 class="text-xl font-bold text-gray-800">PsiCare</h1>
+                        <p class="text-sm text-gray-500">Sua prática profissional</p>
+                    </div>
+                </div>
+                
+                <ul class="space-y-2">
+                    <li>
+                        <button onclick="showSection('dashboard')" class="nav-item w-full flex items-center space-x-3 px-4 py-3 text-left rounded-lg bg-soft-emerald text-emerald-700 font-medium">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2H5a2 2 0 00-2-2z"></path>
+                            </svg>
+                            <span>Início</span>
+                        </button>
+                    </li>
+
+                    <li>
+                        <button onclick="showSection('calendar')" class="nav-item w-full flex items-center space-x-3 px-4 py-3 text-left rounded-lg text-gray-600 hover:bg-gray-100 transition-colors">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                            </svg>
+                            <span>Agenda</span>
+                        </button>
+                    </li>
+
+
+                    <li>
+                        <button onclick="showSection('settings')" class="nav-item w-full flex items-center space-x-3 px-4 py-3 text-left rounded-lg text-gray-600 hover:bg-gray-100 transition-colors">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path>
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                            </svg>
+                            <span>Configurações</span>
+                        </button>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+
+        <!-- Conteúdo Principal -->
+        <main class="flex-1 overflow-auto">
+            <!-- Header -->
+            <header class="bg-white shadow-sm border-b border-gray-200 px-6 py-4">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <h2 id="page-title" class="text-2xl font-semibold text-gray-800">Pacientes</h2>
+                        <p class="text-gray-600 mt-1">Bem-vindo(a) de volta, Dr(a). Silva</p>
+                    </div>
+                    <div class="flex items-center space-x-4">
+                        <button class="relative p-2 text-gray-600 hover:text-gray-800 hover:bg-gray-100 rounded-lg transition-colors">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-5 5v-5zM4 19h10a2 2 0 002-2V7a2 2 0 00-2-2H4a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                            </svg>
+                            <span class="absolute -top-1 -right-1 w-3 h-3 bg-red-500 rounded-full"></span>
+                        </button>
+                        <div class="relative">
+                            <button onclick="toggleUserMenu()" class="w-8 h-8 bg-gradient-to-br from-purple-400 to-pink-400 rounded-full flex items-center justify-center hover:ring-2 hover:ring-purple-200 transition-all">
+                                <span class="text-white text-sm font-medium">DS</span>
+                            </button>
+                            
+                            <!-- Menu do usuário -->
+                            <div id="user-menu" class="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg border border-gray-200 py-2 z-50 hidden">
+                                <div class="px-4 py-2 border-b border-gray-200">
+                                    <p class="text-sm font-medium text-gray-800">Dr(a). Silva</p>
+                                    <p class="text-xs text-gray-600">silva@email.com</p>
+                                </div>
+                                <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                                    Meu Perfil
+                                </a>
+                                <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                                    Configurações
+                                </a>
+                                <div class="border-t border-gray-200 mt-2 pt-2">
+                                    <button onclick="logout()" class="block w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-red-50">
+                                        Sair
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Dashboard -->
+            <div id="dashboard-section" class="section-content p-6">
+                <!-- Cards de Resumo -->
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+                    <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-200 hover-lift">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <p class="text-gray-600 text-sm font-medium">Pacientes Ativos</p>
+                                <p class="text-3xl font-bold text-gray-800 mt-2">24</p>
+                            </div>
+                            <div class="w-12 h-12 bg-soft-emerald rounded-lg flex items-center justify-center">
+                                <svg class="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-200 hover-lift">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <p class="text-gray-600 text-sm font-medium">Sessões Hoje</p>
+                                <p class="text-3xl font-bold text-gray-800 mt-2">6</p>
+                            </div>
+                            <div class="w-12 h-12 bg-soft-teal rounded-lg flex items-center justify-center">
+                                <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-200 hover-lift">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <p class="text-gray-600 text-sm font-medium">Esta Semana</p>
+                                <p class="text-3xl font-bold text-gray-800 mt-2">28</p>
+                            </div>
+                            <div class="w-12 h-12 bg-sage rounded-lg flex items-center justify-center">
+                                <svg class="w-6 h-6 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+
+                <!-- Lista de Pacientes -->
+                <div class="flex justify-between items-center mb-6">
+                    <h3 class="text-xl font-semibold text-gray-800">Gerenciar Pacientes</h3>
+                    <button onclick="showPatientForm()" class="bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 text-white px-4 py-2 rounded-lg flex items-center space-x-2 transition-colors">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+                        </svg>
+                        <span>Novo Paciente</span>
+                    </button>
+                </div>
+
+                <div class="bg-white rounded-xl shadow-sm border border-gray-200">
+                    <div class="p-6 border-b border-gray-200">
+                        <div class="flex items-center space-x-4">
+                            <div class="flex-1">
+                                <input type="text" placeholder="Buscar pacientes..." class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-transparent">
+                            </div>
+                            <select class="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-transparent">
+                                <option>Todos os status</option>
+                                <option>Ativo</option>
+                                <option>Inativo</option>
+                                <option>Em pausa</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="divide-y divide-gray-200">
+                        <div class="p-6 hover:bg-gray-50 transition-colors cursor-pointer" onclick="showPatientDetails('Ana Maria Santos')">
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center space-x-4">
+                                    <div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center">
+                                        <span class="text-blue-600 font-medium">AM</span>
+                                    </div>
+                                    <div>
+                                        <h4 class="font-medium text-gray-800">Ana Maria Santos</h4>
+                                        <p class="text-sm text-gray-600">(11) 99999-9999</p>
+                                        <p class="text-xs text-gray-500 mt-1">Terças-feiras • 14:00 - 15:00</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-center space-x-3">
+                                    <span class="text-xs bg-green-100 text-green-700 px-2 py-1 rounded-full">Ativo</span>
+                                    <button class="text-gray-400 hover:text-gray-600">
+                                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                                        </svg>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="p-6 hover:bg-gray-50 transition-colors cursor-pointer" onclick="showPatientDetails('João Silva')">
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center space-x-4">
+                                    <div class="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center">
+                                        <span class="text-purple-600 font-medium">JS</span>
+                                    </div>
+                                    <div>
+                                        <h4 class="font-medium text-gray-800">João Silva</h4>
+                                        <p class="text-sm text-gray-600">(11) 88888-8888</p>
+                                        <p class="text-xs text-gray-500 mt-1">Quintas-feiras • 15:30 - 16:30</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-center space-x-3">
+                                    <span class="text-xs bg-green-100 text-green-700 px-2 py-1 rounded-full">Ativo</span>
+                                    <button class="text-gray-400 hover:text-gray-600">
+                                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                                        </svg>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="p-6 hover:bg-gray-50 transition-colors cursor-pointer" onclick="showPatientDetails('Maria Clara')">
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center space-x-4">
+                                    <div class="w-12 h-12 bg-pink-100 rounded-full flex items-center justify-center">
+                                        <span class="text-pink-600 font-medium">MC</span>
+                                    </div>
+                                    <div>
+                                        <h4 class="font-medium text-gray-800">Maria Clara</h4>
+                                        <p class="text-sm text-gray-600">(11) 77777-7777</p>
+                                        <p class="text-xs text-gray-500 mt-1">Segundas-feiras • 17:00 - 18:00</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-center space-x-3">
+                                    <span class="text-xs bg-yellow-100 text-yellow-700 px-2 py-1 rounded-full">Em pausa</span>
+                                    <button class="text-gray-400 hover:text-gray-600">
+                                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                                        </svg>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="p-6 hover:bg-gray-50 transition-colors cursor-pointer" onclick="showPatientDetails('Carlos Eduardo')">
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center space-x-4">
+                                    <div class="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center">
+                                        <span class="text-green-600 font-medium">CE</span>
+                                    </div>
+                                    <div>
+                                        <h4 class="font-medium text-gray-800">Carlos Eduardo</h4>
+                                        <p class="text-sm text-gray-600">(11) 66666-6666</p>
+                                        <p class="text-xs text-gray-500 mt-1">Sextas-feiras • 16:00 - 17:00</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-center space-x-3">
+                                    <span class="text-xs bg-green-100 text-green-700 px-2 py-1 rounded-full">Ativo</span>
+                                    <button class="text-gray-400 hover:text-gray-600">
+                                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                                        </svg>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+            <!-- Seção Agenda -->
+            <div id="calendar-section" class="section-content p-6 hidden">
+                <div class="flex justify-between items-center mb-6">
+                    <h3 class="text-xl font-semibold text-gray-800">Agenda de Sessões</h3>
+                    <div class="flex items-center space-x-3">
+                        <select class="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                            <option>Janeiro 2024</option>
+                            <option>Fevereiro 2024</option>
+                            <option>Março 2024</option>
+                        </select>
+                        <button onclick="showNewSessionForm()" class="bg-emerald-600 hover:bg-emerald-700 text-white px-4 py-2 rounded-lg flex items-center space-x-2 transition-colors">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+                            </svg>
+                            <span>Nova Sessão</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Calendário Semanal -->
+                <div class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
+                    <div class="grid grid-cols-8 border-b border-gray-200">
+                        <div class="p-4 bg-gray-50 border-r border-gray-200">
+                            <span class="text-sm font-medium text-gray-600">Horário</span>
+                        </div>
+                        <div class="p-4 bg-gray-50 border-r border-gray-200 text-center">
+                            <span class="text-sm font-medium text-gray-800">SEG</span>
+                            <p class="text-xs text-gray-600 mt-1">15</p>
+                        </div>
+                        <div class="p-4 bg-gray-50 border-r border-gray-200 text-center">
+                            <span class="text-sm font-medium text-gray-800">TER</span>
+                            <p class="text-xs text-gray-600 mt-1">16</p>
+                        </div>
+                        <div class="p-4 bg-gray-50 border-r border-gray-200 text-center">
+                            <span class="text-sm font-medium text-gray-800">QUA</span>
+                            <p class="text-xs text-gray-600 mt-1">17</p>
+                        </div>
+                        <div class="p-4 bg-gray-50 border-r border-gray-200 text-center">
+                            <span class="text-sm font-medium text-gray-800">QUI</span>
+                            <p class="text-xs text-gray-600 mt-1">18</p>
+                        </div>
+                        <div class="p-4 bg-gray-50 border-r border-gray-200 text-center">
+                            <span class="text-sm font-medium text-gray-800">SEX</span>
+                            <p class="text-xs text-gray-600 mt-1">19</p>
+                        </div>
+                        <div class="p-4 bg-gray-50 border-r border-gray-200 text-center">
+                            <span class="text-sm font-medium text-gray-800">SÁB</span>
+                            <p class="text-xs text-gray-600 mt-1">20</p>
+                        </div>
+                        <div class="p-4 bg-gray-50 text-center">
+                            <span class="text-sm font-medium text-gray-800">DOM</span>
+                            <p class="text-xs text-gray-600 mt-1">21</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Horários -->
+                    <div class="grid grid-cols-8 border-b border-gray-200">
+                        <div class="p-4 border-r border-gray-200 bg-gray-50">
+                            <span class="text-sm text-gray-600">14:00</span>
+                        </div>
+                        <div class="p-4 border-r border-gray-200"></div>
+                        <div class="p-4 border-r border-gray-200">
+                            <div class="bg-blue-100 text-blue-800 p-2 rounded text-xs relative group">
+                                <p class="font-medium">Ana Maria</p>
+                                <p>14:00-15:00</p>
+                                <div class="absolute top-1 right-1 opacity-0 group-hover:opacity-100 transition-opacity">
+                                    <button onclick="showSessionOptions('Ana Maria', 'Terça', '14:00-15:00')" class="text-blue-600 hover:text-blue-800">
+                                        <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 5v.01M12 12v.01M12 19v.01M12 6a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z"></path>
+                                        </svg>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="p-4 border-r border-gray-200"></div>
+                        <div class="p-4 border-r border-gray-200">
+                            <div class="bg-purple-100 text-purple-800 p-2 rounded text-xs relative group">
+                                <p class="font-medium">João Silva</p>
+                                <p>14:00-15:00</p>
+                                <div class="absolute top-1 right-1 opacity-0 group-hover:opacity-100 transition-opacity">
+                                    <button onclick="showSessionOptions('João Silva', 'Quinta', '14:00-15:00')" class="text-purple-600 hover:text-purple-800">
+                                        <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 5v.01M12 12v.01M12 19v.01M12 6a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z"></path>
+                                        </svg>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="p-4 border-r border-gray-200"></div>
+                        <div class="p-4 border-r border-gray-200"></div>
+                        <div class="p-4"></div>
+                    </div>
+                    
+                    <div class="grid grid-cols-8 border-b border-gray-200">
+                        <div class="p-4 border-r border-gray-200 bg-gray-50">
+                            <span class="text-sm text-gray-600">15:00</span>
+                        </div>
+                        <div class="p-4 border-r border-gray-200">
+                            <div class="bg-green-100 text-green-800 p-2 rounded text-xs relative group">
+                                <p class="font-medium">Carlos E.</p>
+                                <p>15:30-16:30</p>
+                                <div class="absolute top-1 right-1 opacity-0 group-hover:opacity-100 transition-opacity">
+                                    <button onclick="showSessionOptions('Carlos Eduardo', 'Segunda', '15:30-16:30')" class="text-green-600 hover:text-green-800">
+                                        <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 5v.01M12 12v.01M12 19v.01M12 6a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z"></path>
+                                        </svg>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="p-4 border-r border-gray-200"></div>
+                        <div class="p-4 border-r border-gray-200">
+                            <div class="bg-pink-100 text-pink-800 p-2 rounded text-xs relative group">
+                                <p class="font-medium">Maria Clara</p>
+                                <p>15:00-16:00</p>
+                                <div class="absolute top-1 right-1 opacity-0 group-hover:opacity-100 transition-opacity">
+                                    <button onclick="showSessionOptions('Maria Clara', 'Quarta', '15:00-16:00')" class="text-pink-600 hover:text-pink-800">
+                                        <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 5v.01M12 12v.01M12 19v.01M12 6a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z"></path>
+                                        </svg>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="p-4 border-r border-gray-200"></div>
+                        <div class="p-4 border-r border-gray-200">
+                            <div class="bg-yellow-100 text-yellow-800 p-2 rounded text-xs relative group">
+                                <p class="font-medium">Pedro L.</p>
+                                <p>15:00-16:00</p>
+                                <div class="absolute top-1 right-1 opacity-0 group-hover:opacity-100 transition-opacity">
+                                    <button onclick="showSessionOptions('Pedro L.', 'Sexta', '15:00-16:00')" class="text-yellow-600 hover:text-yellow-800">
+                                        <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 5v.01M12 12v.01M12 19v.01M12 6a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z"></path>
+                                        </svg>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="p-4 border-r border-gray-200"></div>
+                        <div class="p-4"></div>
+                    </div>
+                </div>
+            </div>
+
+
+
+
+
+            <!-- Seção Configurações -->
+            <div id="settings-section" class="section-content p-6 hidden">
+                <h3 class="text-xl font-semibold text-gray-800 mb-6">Configurações</h3>
+                
+                <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-200">
+                    <div class="space-y-6">
+                        <div>
+                            <h4 class="font-medium text-gray-800 mb-4">Perfil Profissional</h4>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-2">Nome Completo</label>
+                                    <input type="text" value="Dr(a). Silva" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-2">CRP</label>
+                                    <input type="text" value="06/123456" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <h4 class="font-medium text-gray-800 mb-4">Notificações</h4>
+                            <div class="space-y-3">
+                                <label class="flex items-center">
+                                    <input type="checkbox" checked class="rounded border-gray-300 text-blue-600 focus:ring-blue-500">
+                                    <span class="ml-3 text-sm text-gray-700">Lembrete de sessões</span>
+                                </label>
+                                <label class="flex items-center">
+                                    <input type="checkbox" checked class="rounded border-gray-300 text-blue-600 focus:ring-blue-500">
+                                    <span class="ml-3 text-sm text-gray-700">Confirmação de pagamentos</span>
+                                </label>
+                                <label class="flex items-center">
+                                    <input type="checkbox" class="rounded border-gray-300 text-emerald-600 focus:ring-emerald-500">
+                                    <span class="ml-3 text-sm text-gray-700">Relatórios semanais</span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Modal Novo Paciente -->
+            <div id="patient-modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+                <div class="bg-white rounded-xl p-6 w-full max-w-md mx-4">
+                    <div class="flex justify-between items-center mb-4">
+                        <h3 id="modal-title" class="text-lg font-semibold text-gray-800">Novo Paciente</h3>
+                        <button onclick="hidePatientForm()" class="text-gray-400 hover:text-gray-600">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                            </svg>
+                        </button>
+                    </div>
+                    
+                    <form onsubmit="addPatient(event)" class="space-y-4">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Nome Completo</label>
+                            <input type="text" name="nome" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-transparent">
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Data de Nascimento</label>
+                            <input type="date" name="nascimento" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-transparent">
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Telefone</label>
+                            <input type="tel" name="telefone" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-transparent">
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Queixa Principal</label>
+                            <textarea name="queixa" required class="w-full h-20 px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-transparent resize-none" placeholder="Descreva o motivo principal da busca por atendimento..."></textarea>
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Histórico Familiar</label>
+                            <textarea name="historico" class="w-full h-20 px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-transparent resize-none" placeholder="Histórico de saúde mental na família, se relevante..."></textarea>
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Observações Iniciais</label>
+                            <textarea name="observacoes" class="w-full h-24 px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-transparent resize-none"></textarea>
+                        </div>
+                        
+                        <div class="flex space-x-3 pt-4">
+                            <button type="button" onclick="hidePatientForm()" class="flex-1 px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors">
+                                Cancelar
+                            </button>
+                            <button type="submit" class="flex-1 px-4 py-2 bg-gradient-to-r from-emerald-600 to-teal-600 text-white rounded-lg hover:from-emerald-700 hover:to-teal-700 transition-colors">
+                                Continuar
+                            </button>
+                        </div>
+                    </form>
+                    
+                    <!-- Formulário de Agendamento (segunda etapa) -->
+                    <form id="schedule-form" onsubmit="completePatient(event)" class="space-y-4 hidden">
+                        <div class="text-center mb-4">
+                            <p class="text-gray-600">Agora vamos agendar as consultas para <span id="patient-name-display" class="font-medium text-gray-800"></span></p>
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Dia da Semana</label>
+                            <select name="diaSemana" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-transparent">
+                                <option value="">Selecione o dia</option>
+                                <option value="Segunda-feira">Segunda-feira</option>
+                                <option value="Terça-feira">Terça-feira</option>
+                                <option value="Quarta-feira">Quarta-feira</option>
+                                <option value="Quinta-feira">Quinta-feira</option>
+                                <option value="Sexta-feira">Sexta-feira</option>
+                                <option value="Sábado">Sábado</option>
+                                <option value="Domingo">Domingo</option>
+                            </select>
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Horário</label>
+                            <input type="time" name="horario" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-transparent">
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Duração da Sessão</label>
+                            <select name="duracao" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-transparent">
+                                <option value="">Selecione a duração</option>
+                                <option value="50">50 minutos</option>
+                                <option value="60">1 hora</option>
+                                <option value="90">1 hora e 30 minutos</option>
+                            </select>
+                        </div>
+                        
+                        <div class="flex space-x-3 pt-4">
+                            <button type="button" onclick="backToPatientForm()" class="flex-1 px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors">
+                                Voltar
+                            </button>
+                            <button type="submit" class="flex-1 px-4 py-2 bg-gradient-to-r from-emerald-600 to-teal-600 text-white rounded-lg hover:from-emerald-700 hover:to-teal-700 transition-colors">
+                                Finalizar Cadastro
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Modal Nova Sessão -->
+            <div id="new-session-modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+                <div class="bg-white rounded-xl p-6 w-full max-w-md mx-4">
+                    <div class="flex justify-between items-center mb-4">
+                        <h3 class="text-lg font-semibold text-gray-800">Agendar Nova Sessão</h3>
+                        <button onclick="hideNewSessionForm()" class="text-gray-400 hover:text-gray-600">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                            </svg>
+                        </button>
+                    </div>
+                    
+                    <!-- Alerta de conflito de horário -->
+                    <div id="schedule-conflict-alert" class="hidden mb-4 p-4 bg-red-50 border border-red-200 rounded-lg">
+                        <div class="flex items-center">
+                            <svg class="w-5 h-5 text-red-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.732 16.5c-.77.833.192 2.5 1.732 2.5z"></path>
+                            </svg>
+                            <div>
+                                <p class="text-red-800 font-medium">Conflito de horário!</p>
+                                <p class="text-red-700 text-sm" id="conflict-message">Este horário já está ocupado. Selecione outro horário.</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <form onsubmit="addNewSession(event)" class="space-y-4">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Paciente</label>
+                            <select name="paciente" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-transparent">
+                                <option value="">Selecione o paciente</option>
+                                <option value="Ana Maria Santos">Ana Maria Santos</option>
+                                <option value="João Silva">João Silva</option>
+                                <option value="Maria Clara">Maria Clara</option>
+                                <option value="Carlos Eduardo">Carlos Eduardo</option>
+                            </select>
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Data</label>
+                            <input type="date" name="data" required onchange="checkScheduleConflict()" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-transparent">
+                        </div>
+                        
+                        <div class="grid grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Horário Início</label>
+                                <input type="time" name="horarioInicio" required onchange="checkScheduleConflict()" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-transparent">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Horário Fim</label>
+                                <input type="time" name="horarioFim" required onchange="checkScheduleConflict()" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-transparent">
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Tipo de Sessão</label>
+                            <select name="tipoSessao" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-transparent">
+                                <option value="">Selecione o tipo</option>
+                                <option value="Consulta Regular">Consulta Regular</option>
+                                <option value="Primeira Consulta">Primeira Consulta</option>
+                                <option value="Sessão de Retorno">Sessão de Retorno</option>
+                                <option value="Avaliação">Avaliação</option>
+                            </select>
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Observações (opcional)</label>
+                            <textarea name="observacoes" class="w-full h-20 px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-transparent resize-none" placeholder="Observações sobre esta sessão..."></textarea>
+                        </div>
+                        
+                        <div class="flex space-x-3 pt-4">
+                            <button type="button" onclick="hideNewSessionForm()" class="flex-1 px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors">
+                                Cancelar
+                            </button>
+                            <button type="submit" id="schedule-submit-btn" class="flex-1 px-4 py-2 bg-gradient-to-r from-emerald-600 to-teal-600 text-white rounded-lg hover:from-emerald-700 hover:to-teal-700 transition-colors">
+                                Agendar Sessão
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Modal Detalhes do Paciente -->
+            <div id="patient-details-modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+                <div class="bg-white rounded-xl p-6 w-full max-w-4xl mx-4 max-h-[90vh] overflow-y-auto">
+                    <div class="flex justify-between items-center mb-6">
+                        <div class="flex items-center space-x-4">
+                            <div id="patient-avatar" class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center">
+                                <span id="patient-initials" class="text-blue-600 font-medium text-xl">AM</span>
+                            </div>
+                            <div>
+                                <h3 id="patient-details-name" class="text-2xl font-semibold text-gray-800">Ana Maria Santos</h3>
+                                <p id="patient-schedule" class="text-gray-600">Terças-feiras • 14:00 - 15:00</p>
+                            </div>
+                            <button onclick="editPatientInfo()" class="ml-4 p-2 text-gray-400 hover:text-emerald-600 hover:bg-emerald-50 rounded-lg transition-colors" title="Editar informações do paciente">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
+                                </svg>
+                            </button>
+                        </div>
+                        <button onclick="hidePatientDetails()" class="text-gray-400 hover:text-gray-600">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                            </svg>
+                        </button>
+                    </div>
+                    
+                    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                        <!-- Informações do Paciente -->
+                        <div class="lg:col-span-1 space-y-6">
+                            <div class="bg-gray-50 rounded-xl p-6">
+                                <h4 class="font-medium text-gray-800 mb-4">Informações Pessoais</h4>
+                                <div class="space-y-3">
+                                    <div>
+                                        <p class="text-sm text-gray-600">Telefone</p>
+                                        <p class="font-medium">(11) 99999-9999</p>
+                                    </div>
+                                    <div>
+                                        <p class="text-sm text-gray-600">Data de Nascimento</p>
+                                        <p class="font-medium">15/03/1985</p>
+                                    </div>
+                                    <div>
+                                        <p class="text-sm text-gray-600">Status</p>
+                                        <span class="text-xs bg-green-100 text-green-700 px-2 py-1 rounded-full">Ativo</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="bg-gray-50 rounded-xl p-6">
+                                <h4 class="font-medium text-gray-800 mb-4">Histórico</h4>
+                                <div class="space-y-3">
+                                    <div>
+                                        <p class="text-sm text-gray-600">Total de sessões</p>
+                                        <p class="font-medium">12 sessões</p>
+                                    </div>
+                                    <div>
+                                        <p class="text-sm text-gray-600">Última sessão</p>
+                                        <p class="font-medium">15/01/2024</p>
+                                    </div>
+                                    <div>
+                                        <p class="text-sm text-gray-600">Próxima sessão</p>
+                                        <p class="font-medium">23/01/2024</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Anotações -->
+                        <div class="lg:col-span-2">
+                            <div class="bg-white border border-gray-200 rounded-xl p-6">
+                                <div class="flex justify-between items-center mb-4">
+                                    <h4 class="font-medium text-gray-800">Anotações de Sessão</h4>
+                                    <button onclick="addNewNote()" class="bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 text-white px-4 py-2 rounded-lg text-sm">
+                                        Nova Anotação
+                                    </button>
+                                </div>
+                                
+                                <div id="notes-container" class="space-y-4">
+                                    <!-- Anotação exemplo -->
+                                    <div class="border border-gray-200 rounded-lg p-4">
+                                        <div class="flex justify-between items-start mb-3">
+                                            <div>
+                                                <p class="font-medium text-gray-800">Sessão 15/01/2024</p>
+                                                <div class="flex items-center space-x-4 mt-1">
+                                                    <label class="flex items-center text-sm">
+                                                        <input type="checkbox" checked class="rounded border-gray-300 text-emerald-600 focus:ring-emerald-500 mr-2">
+                                                        <span class="text-gray-600">Compareceu</span>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <button class="text-gray-400 hover:text-gray-600">
+                                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
+                                                </svg>
+                                            </button>
+                                        </div>
+                                        
+                                        <div class="space-y-3">
+                                            <div>
+                                                <p class="text-sm font-medium text-gray-700 mb-1">Observações da Sessão</p>
+                                                <p class="text-sm text-gray-600">Paciente demonstrou melhora significativa no controle da ansiedade. Relatou ter praticado as técnicas de respiração ensinadas na sessão anterior.</p>
+                                            </div>
+                                            
+                                            <div>
+                                                <p class="text-sm font-medium text-gray-700 mb-1">Humor/Estado Emocional</p>
+                                                <p class="text-sm text-gray-600">Mais calma e otimista, demonstrando maior autoconfiança</p>
+                                            </div>
+                                            
+                                            <div>
+                                                <p class="text-sm font-medium text-gray-700 mb-1">Próximos Passos</p>
+                                                <p class="text-sm text-gray-600">Continuar com exercícios de mindfulness e introduzir técnicas de reestruturação cognitiva.</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- Anotação exemplo 2 -->
+                                    <div class="border border-gray-200 rounded-lg p-4">
+                                        <div class="flex justify-between items-start mb-3">
+                                            <div>
+                                                <p class="font-medium text-gray-800">Sessão 08/01/2024</p>
+                                                <div class="flex items-center space-x-4 mt-1">
+                                                    <label class="flex items-center text-sm">
+                                                        <input type="checkbox" class="rounded border-gray-300 text-emerald-600 focus:ring-emerald-500 mr-2">
+                                                        <span class="text-gray-600">Compareceu</span>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <button class="text-gray-400 hover:text-gray-600">
+                                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
+                                                </svg>
+                                            </button>
+                                        </div>
+                                        
+                                        <div class="space-y-3">
+                                            <div>
+                                                <p class="text-sm font-medium text-gray-700 mb-1">Observações da Sessão</p>
+                                                <p class="text-sm text-gray-600">Paciente faltou à sessão. Reagendado para próxima semana.</p>
+                                            </div>
+                                            
+                                            <div>
+                                                <p class="text-sm font-medium text-gray-700 mb-1">Humor/Estado Emocional</p>
+                                                <p class="text-sm text-gray-600">-</p>
+                                            </div>
+                                            
+                                            <div>
+                                                <p class="text-sm font-medium text-gray-700 mb-1">Próximos Passos</p>
+                                                <p class="text-sm text-gray-600">Verificar motivo da ausência e reforçar importância da continuidade.</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Modal Opções de Sessão -->
+            <div id="session-options-modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+                <div class="bg-white rounded-xl p-6 w-full max-w-sm mx-4">
+                    <div class="text-center mb-4">
+                        <h3 id="session-patient-name" class="text-lg font-semibold text-gray-800">Ana Maria</h3>
+                        <p id="session-time-info" class="text-gray-600">Terça • 14:00-15:00</p>
+                    </div>
+                    
+                    <div class="space-y-3">
+                        <button onclick="rescheduleSession()" class="w-full px-4 py-3 bg-blue-50 text-blue-700 rounded-lg hover:bg-blue-100 transition-colors flex items-center justify-center space-x-2">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                            </svg>
+                            <span>Reagendar</span>
+                        </button>
+                        
+                        <button onclick="cancelSession()" class="w-full px-4 py-3 bg-red-50 text-red-700 rounded-lg hover:bg-red-100 transition-colors flex items-center justify-center space-x-2">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
+                            </svg>
+                            <span>Cancelar Sessão</span>
+                        </button>
+                        
+                        <button onclick="hideSessionOptions()" class="w-full px-4 py-3 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors">
+                            Fechar
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Modal Editar Paciente -->
+            <div id="edit-patient-modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+                <div class="bg-white rounded-xl p-6 w-full max-w-md mx-4">
+                    <div class="flex justify-between items-center mb-4">
+                        <h3 class="text-lg font-semibold text-gray-800">Editar Informações</h3>
+                        <button onclick="hideEditPatientForm()" class="text-gray-400 hover:text-gray-600">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                            </svg>
+                        </button>
+                    </div>
+                    
+                    <form onsubmit="savePatientEdit(event)" class="space-y-4">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Nome Completo</label>
+                            <input type="text" id="edit-patient-name" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-transparent">
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Telefone</label>
+                            <input type="tel" id="edit-patient-phone" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-transparent">
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Data de Nascimento</label>
+                            <input type="date" id="edit-patient-birth" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-transparent">
+                        </div>
+                        
+                        <div class="flex space-x-3 pt-4">
+                            <button type="button" onclick="hideEditPatientForm()" class="flex-1 px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors">
+                                Cancelar
+                            </button>
+                            <button type="submit" class="flex-1 px-4 py-2 bg-gradient-to-r from-emerald-600 to-teal-600 text-white rounded-lg hover:from-emerald-700 hover:to-teal-700 transition-colors">
+                                Salvar
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Modal Nova Anotação -->
+            <div id="new-note-modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+                <div class="bg-white rounded-xl p-6 w-full max-w-2xl mx-4">
+                    <div class="flex justify-between items-center mb-4">
+                        <h3 class="text-lg font-semibold text-gray-800">Nova Anotação de Sessão</h3>
+                        <button onclick="hideNewNoteForm()" class="text-gray-400 hover:text-gray-600">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                            </svg>
+                        </button>
+                    </div>
+                    
+                    <form onsubmit="addNewSessionNote(event)" class="space-y-4">
+                        <div class="grid grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Data da Sessão</label>
+                                <input type="date" name="sessionDate" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-transparent">
+                            </div>
+                            <div>
+                                <label class="flex items-center text-sm">
+                                    <input type="checkbox" name="attended" checked class="rounded border-gray-300 text-emerald-600 focus:ring-emerald-500 mr-2">
+                                    <span class="text-gray-700">Paciente compareceu</span>
+                                </label>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Observações da Sessão</label>
+                            <textarea name="sessionNotes" required class="w-full h-24 px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-transparent resize-none" placeholder="Descreva o que aconteceu durante a sessão..."></textarea>
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Humor/Estado Emocional</label>
+                            <textarea name="mood" class="w-full h-20 px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-transparent resize-none" placeholder="Como o paciente se apresentou emocionalmente..."></textarea>
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Próximos Passos</label>
+                            <textarea name="nextSteps" class="w-full h-20 px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-transparent resize-none" placeholder="Planos para as próximas sessões..."></textarea>
+                        </div>
+                        
+                        <div class="flex space-x-3 pt-4">
+                            <button type="button" onclick="hideNewNoteForm()" class="flex-1 px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors">
+                                Cancelar
+                            </button>
+                            <button type="submit" class="flex-1 px-4 py-2 bg-gradient-to-r from-emerald-600 to-teal-600 text-white rounded-lg hover:from-emerald-700 hover:to-teal-700 transition-colors">
+                                Salvar Anotação
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        function showSection(sectionName) {
+            // Esconder todas as seções
+            const sections = document.querySelectorAll('.section-content');
+            sections.forEach(section => section.classList.add('hidden'));
+            
+            // Mostrar seção selecionada
+            const targetSection = document.getElementById(sectionName + '-section');
+            if (targetSection) {
+                targetSection.classList.remove('hidden');
+                targetSection.classList.add('fade-in');
+            }
+            
+            // Atualizar navegação
+            const navItems = document.querySelectorAll('.nav-item');
+            navItems.forEach(item => {
+                item.classList.remove('bg-soft-blue', 'text-blue-700', 'font-medium');
+                item.classList.add('text-gray-600');
+            });
+            
+            event.target.classList.add('bg-soft-blue', 'text-blue-700', 'font-medium');
+            event.target.classList.remove('text-gray-600');
+            
+            // Atualizar título da página
+            const titles = {
+                'dashboard': 'Pacientes',
+                'calendar': 'Agenda',
+                'notes': 'Anotações',
+                'settings': 'Configurações'
+            };
+            
+            document.getElementById('page-title').textContent = titles[sectionName] || 'Dashboard';
+        }
+        
+        function showPatientForm() {
+            document.getElementById('patient-modal').classList.remove('hidden');
+        }
+        
+        function hidePatientForm() {
+            document.getElementById('patient-modal').classList.add('hidden');
+            // Resetar para primeira etapa
+            document.getElementById('schedule-form').classList.add('hidden');
+            document.querySelector('#patient-modal form').classList.remove('hidden');
+            document.getElementById('modal-title').textContent = 'Novo Paciente';
+        }
+        
+        let currentPatientData = {};
+        
+        function addPatient(event) {
+            event.preventDefault();
+            
+            const form = event.target;
+            const formData = new FormData(form);
+            
+            // Armazenar dados do paciente
+            currentPatientData = {
+                nome: formData.get('nome'),
+                nascimento: formData.get('nascimento'),
+                telefone: formData.get('telefone'),
+                queixa: formData.get('queixa'),
+                historico: formData.get('historico'),
+                observacoes: formData.get('observacoes')
+            };
+            
+            // Mostrar nome no formulário de agendamento
+            document.getElementById('patient-name-display').textContent = currentPatientData.nome;
+            
+            // Esconder primeiro formulário e mostrar segundo
+            form.classList.add('hidden');
+            document.getElementById('schedule-form').classList.remove('hidden');
+            document.getElementById('modal-title').textContent = 'Agendar Consultas';
+        }
+        
+        function backToPatientForm() {
+            document.getElementById('schedule-form').classList.add('hidden');
+            document.querySelector('#patient-modal form').classList.remove('hidden');
+            document.getElementById('modal-title').textContent = 'Novo Paciente';
+        }
+        
+        function completePatient(event) {
+            event.preventDefault();
+            
+            const form = event.target;
+            const formData = new FormData(form);
+            
+            // Adicionar dados de agendamento
+            currentPatientData.diaSemana = formData.get('diaSemana');
+            currentPatientData.horario = formData.get('horario');
+            currentPatientData.duracao = formData.get('duracao');
+            
+            // Verificar conflito de horário para o novo paciente
+            const endTime = calculateEndTime(currentPatientData.horario, parseInt(currentPatientData.duracao));
+            const newTimeSlot = `${currentPatientData.horario}-${endTime}`;
+            
+            // Simular data da próxima semana para o dia escolhido
+            const today = new Date();
+            const nextWeekDate = new Date(today.getTime() + 7 * 24 * 60 * 60 * 1000);
+            const dateString = nextWeekDate.toISOString().split('T')[0];
+            
+            const conflict = scheduledSessions.find(session => 
+                session.date === dateString && timesOverlap(session.time, newTimeSlot)
+            );
+            
+            if (conflict) {
+                showNotification(`Conflito de horário! O horário ${newTimeSlot} já está ocupado por ${conflict.patient}.`, 'error');
+                return;
+            }
+            
+            // Adicionar à lista de sessões agendadas
+            scheduledSessions.push({
+                patient: currentPatientData.nome,
+                date: dateString,
+                time: newTimeSlot,
+                day: currentPatientData.diaSemana
+            });
+            
+            console.log('Paciente cadastrado completo:', currentPatientData);
+            
+            // Fechar modal e limpar formulários
+            hidePatientForm();
+            document.querySelector('#patient-modal form').reset();
+            form.reset();
+            
+            showNotification('Paciente cadastrado com sucesso!', 'success');
+        }
+        
+        function calculateEndTime(startTime, durationMinutes) {
+            const [hours, minutes] = startTime.split(':').map(Number);
+            const startMinutes = hours * 60 + minutes;
+            const endMinutes = startMinutes + durationMinutes;
+            const endHours = Math.floor(endMinutes / 60);
+            const endMins = endMinutes % 60;
+            return `${endHours.toString().padStart(2, '0')}:${endMins.toString().padStart(2, '0')}`;
+        }
+        
+        function showPatientDetails(patientName) {
+            // Dados simulados dos pacientes
+            const patientsData = {
+                'Ana Maria Santos': {
+                    initials: 'AM',
+                    color: 'blue',
+                    phone: '(11) 99999-9999',
+                    birth: '15/03/1985',
+                    schedule: 'Terças-feiras • 14:00 - 15:00',
+                    status: 'Ativo',
+                    totalSessions: 12,
+                    lastSession: '15/01/2024',
+                    nextSession: '23/01/2024'
+                },
+                'João Silva': {
+                    initials: 'JS',
+                    color: 'purple',
+                    phone: '(11) 88888-8888',
+                    birth: '22/07/1990',
+                    schedule: 'Quintas-feiras • 15:30 - 16:30',
+                    status: 'Ativo',
+                    totalSessions: 8,
+                    lastSession: '18/01/2024',
+                    nextSession: '25/01/2024'
+                },
+                'Maria Clara': {
+                    initials: 'MC',
+                    color: 'pink',
+                    phone: '(11) 77777-7777',
+                    birth: '10/12/1988',
+                    schedule: 'Segundas-feiras • 17:00 - 18:00',
+                    status: 'Em pausa',
+                    totalSessions: 15,
+                    lastSession: '08/01/2024',
+                    nextSession: '-'
+                },
+                'Carlos Eduardo': {
+                    initials: 'CE',
+                    color: 'green',
+                    phone: '(11) 66666-6666',
+                    birth: '05/09/1982',
+                    schedule: 'Sextas-feiras • 16:00 - 17:00',
+                    status: 'Ativo',
+                    totalSessions: 20,
+                    lastSession: '19/01/2024',
+                    nextSession: '26/01/2024'
+                }
+            };
+            
+            const patient = patientsData[patientName];
+            if (!patient) return;
+            
+            // Atualizar informações do modal
+            document.getElementById('patient-details-name').textContent = patientName;
+            document.getElementById('patient-schedule').textContent = patient.schedule;
+            document.getElementById('patient-initials').textContent = patient.initials;
+            
+            // Atualizar avatar color
+            const avatar = document.getElementById('patient-avatar');
+            avatar.className = `w-16 h-16 bg-${patient.color}-100 rounded-full flex items-center justify-center`;
+            document.getElementById('patient-initials').className = `text-${patient.color}-600 font-medium text-xl`;
+            
+            // Atualizar informações pessoais (simulado)
+            const personalInfo = document.querySelector('#patient-details-modal .bg-gray-50');
+            personalInfo.innerHTML = `
+                <h4 class="font-medium text-gray-800 mb-4">Informações Pessoais</h4>
+                <div class="space-y-3">
+                    <div>
+                        <p class="text-sm text-gray-600">Telefone</p>
+                        <p class="font-medium">${patient.phone}</p>
+                    </div>
+                    <div>
+                        <p class="text-sm text-gray-600">Data de Nascimento</p>
+                        <p class="font-medium">${patient.birth}</p>
+                    </div>
+                    <div>
+                        <p class="text-sm text-gray-600">Status</p>
+                        <span class="text-xs ${patient.status === 'Ativo' ? 'bg-green-100 text-green-700' : 'bg-yellow-100 text-yellow-700'} px-2 py-1 rounded-full">${patient.status}</span>
+                    </div>
+                </div>
+            `;
+            
+            // Mostrar modal
+            document.getElementById('patient-details-modal').classList.remove('hidden');
+        }
+        
+        function hidePatientDetails() {
+            document.getElementById('patient-details-modal').classList.add('hidden');
+        }
+        
+        // Sistema de agendamentos para verificar conflitos
+        let scheduledSessions = [
+            { patient: 'Ana Maria Santos', day: 'Terça', time: '14:00-15:00', date: '2024-01-16' },
+            { patient: 'João Silva', day: 'Quinta', time: '14:00-15:00', date: '2024-01-18' },
+            { patient: 'Maria Clara', day: 'Quarta', time: '15:00-16:00', date: '2024-01-17' },
+            { patient: 'Carlos Eduardo', day: 'Segunda', time: '15:30-16:30', date: '2024-01-15' },
+            { patient: 'Pedro L.', day: 'Sexta', time: '15:00-16:00', date: '2024-01-19' }
+        ];
+
+        function checkScheduleConflict() {
+            const form = document.querySelector('#new-session-modal form');
+            const data = form.data.value;
+            const horarioInicio = form.horarioInicio.value;
+            const horarioFim = form.horarioFim.value;
+            const alert = document.getElementById('schedule-conflict-alert');
+            const submitBtn = document.getElementById('schedule-submit-btn');
+            
+            if (!data || !horarioInicio || !horarioFim) {
+                alert.classList.add('hidden');
+                submitBtn.disabled = false;
+                submitBtn.classList.remove('opacity-50', 'cursor-not-allowed');
+                return;
+            }
+            
+            const newTimeSlot = `${horarioInicio}-${horarioFim}`;
+            const conflict = scheduledSessions.find(session => 
+                session.date === data && timesOverlap(session.time, newTimeSlot)
+            );
+            
+            if (conflict) {
+                alert.classList.remove('hidden');
+                document.getElementById('conflict-message').textContent = 
+                    `Este horário conflita com a sessão de ${conflict.patient} (${conflict.time}).`;
+                submitBtn.disabled = true;
+                submitBtn.classList.add('opacity-50', 'cursor-not-allowed');
+            } else {
+                alert.classList.add('hidden');
+                submitBtn.disabled = false;
+                submitBtn.classList.remove('opacity-50', 'cursor-not-allowed');
+            }
+        }
+        
+        function timesOverlap(time1, time2) {
+            const [start1, end1] = time1.split('-');
+            const [start2, end2] = time2.split('-');
+            
+            return (start1 < end2 && start2 < end1);
+        }
+
+        function addNewNote() {
+            document.getElementById('new-note-modal').classList.remove('hidden');
+        }
+        
+        function hideNewNoteForm() {
+            document.getElementById('new-note-modal').classList.add('hidden');
+        }
+        
+        function addNewSessionNote(event) {
+            event.preventDefault();
+            
+            const form = event.target;
+            const formData = new FormData(form);
+            
+            const noteData = {
+                date: formData.get('sessionDate'),
+                attended: formData.get('attended') === 'on',
+                notes: formData.get('sessionNotes'),
+                mood: formData.get('mood'),
+                nextSteps: formData.get('nextSteps')
+            };
+            
+            // Criar nova anotação no DOM
+            const notesContainer = document.getElementById('notes-container');
+            const newNote = document.createElement('div');
+            newNote.className = 'border border-gray-200 rounded-lg p-4';
+            
+            const dateFormatted = new Date(noteData.date).toLocaleDateString('pt-BR');
+            
+            newNote.innerHTML = `
+                <div class="flex justify-between items-start mb-3">
+                    <div>
+                        <p class="font-medium text-gray-800">Sessão ${dateFormatted}</p>
+                        <div class="flex items-center space-x-4 mt-1">
+                            <label class="flex items-center text-sm">
+                                <input type="checkbox" ${noteData.attended ? 'checked' : ''} class="rounded border-gray-300 text-emerald-600 focus:ring-emerald-500 mr-2">
+                                <span class="text-gray-600">Compareceu</span>
+                            </label>
+                        </div>
+                    </div>
+                    <button class="text-gray-400 hover:text-gray-600">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
+                        </svg>
+                    </button>
+                </div>
+                
+                <div class="space-y-3">
+                    <div>
+                        <p class="text-sm font-medium text-gray-700 mb-1">Observações da Sessão</p>
+                        <p class="text-sm text-gray-600">${noteData.notes}</p>
+                    </div>
+                    
+                    <div>
+                        <p class="text-sm font-medium text-gray-700 mb-1">Humor/Estado Emocional</p>
+                        <p class="text-sm text-gray-600">${noteData.mood || '-'}</p>
+                    </div>
+                    
+                    <div>
+                        <p class="text-sm font-medium text-gray-700 mb-1">Próximos Passos</p>
+                        <p class="text-sm text-gray-600">${noteData.nextSteps || '-'}</p>
+                    </div>
+                </div>
+            `;
+            
+            // Inserir no início da lista
+            notesContainer.insertBefore(newNote, notesContainer.firstChild);
+            
+            // Fechar modal e limpar formulário
+            hideNewNoteForm();
+            form.reset();
+            
+            // Mostrar feedback
+            showNotification('Anotação adicionada com sucesso!', 'success');
+        }
+        
+        function showSessionOptions(patientName, day, time) {
+            document.getElementById('session-patient-name').textContent = patientName;
+            document.getElementById('session-time-info').textContent = `${day} • ${time}`;
+            document.getElementById('session-options-modal').classList.remove('hidden');
+        }
+        
+        function hideSessionOptions() {
+            document.getElementById('session-options-modal').classList.add('hidden');
+        }
+        
+        function rescheduleSession() {
+            hideSessionOptions();
+            showNewSessionForm();
+            showNotification('Selecione o novo horário para reagendar a sessão', 'info');
+        }
+        
+        function cancelSession() {
+            const patientName = document.getElementById('session-patient-name').textContent;
+            
+            // Confirmar cancelamento
+            const confirmDiv = document.createElement('div');
+            confirmDiv.className = 'fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50';
+            confirmDiv.innerHTML = `
+                <div class="bg-white rounded-xl p-6 w-full max-w-sm mx-4">
+                    <h3 class="text-lg font-semibold text-gray-800 mb-4">Confirmar Cancelamento</h3>
+                    <p class="text-gray-600 mb-6">Tem certeza que deseja cancelar a sessão de ${patientName}?</p>
+                    <div class="flex space-x-3">
+                        <button onclick="this.parentElement.parentElement.parentElement.remove()" class="flex-1 px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors">
+                            Não
+                        </button>
+                        <button onclick="confirmCancelSession('${patientName}'); this.parentElement.parentElement.parentElement.remove();" class="flex-1 px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors">
+                            Sim, Cancelar
+                        </button>
+                    </div>
+                </div>
+            `;
+            
+            document.body.appendChild(confirmDiv);
+            hideSessionOptions();
+        }
+        
+        function confirmCancelSession(patientName) {
+            // Remover da agenda (simulado)
+            showNotification(`Sessão de ${patientName} cancelada com sucesso!`, 'success');
+        }
+        
+        function editPatientInfo() {
+            const patientName = document.getElementById('patient-details-name').textContent;
+            
+            // Preencher formulário com dados atuais (simulado)
+            document.getElementById('edit-patient-name').value = patientName;
+            document.getElementById('edit-patient-phone').value = '(11) 99999-9999';
+            document.getElementById('edit-patient-birth').value = '1985-03-15';
+            
+            document.getElementById('edit-patient-modal').classList.remove('hidden');
+        }
+        
+        function hideEditPatientForm() {
+            document.getElementById('edit-patient-modal').classList.add('hidden');
+        }
+        
+        function savePatientEdit(event) {
+            event.preventDefault();
+            
+            const form = event.target;
+            const formData = new FormData(form);
+            
+            const updatedData = {
+                name: formData.get('name') || document.getElementById('edit-patient-name').value,
+                phone: formData.get('phone') || document.getElementById('edit-patient-phone').value,
+                birth: formData.get('birth') || document.getElementById('edit-patient-birth').value
+            };
+            
+            // Atualizar informações no modal de detalhes
+            document.getElementById('patient-details-name').textContent = updatedData.name;
+            
+            hideEditPatientForm();
+            showNotification('Informações atualizadas com sucesso!', 'success');
+        }
+        
+        function showNotification(message, type = 'success') {
+            const notification = document.createElement('div');
+            const bgColor = type === 'success' ? 'bg-green-500' : type === 'error' ? 'bg-red-500' : 'bg-blue-500';
+            
+            notification.className = `fixed top-4 right-4 ${bgColor} text-white px-6 py-3 rounded-lg shadow-lg z-50 fade-in`;
+            notification.textContent = message;
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.remove();
+            }, 3000);
+        }
+        
+        function showNewSessionForm() {
+            document.getElementById('new-session-modal').classList.remove('hidden');
+        }
+        
+        function hideNewSessionForm() {
+            document.getElementById('new-session-modal').classList.add('hidden');
+        }
+        
+        function addNewSession(event) {
+            event.preventDefault();
+            
+            const form = event.target;
+            const formData = new FormData(form);
+            
+            const sessionData = {
+                paciente: formData.get('paciente'),
+                data: formData.get('data'),
+                horarioInicio: formData.get('horarioInicio'),
+                horarioFim: formData.get('horarioFim'),
+                tipoSessao: formData.get('tipoSessao'),
+                observacoes: formData.get('observacoes')
+            };
+            
+            // Verificar conflito uma última vez antes de salvar
+            const newTimeSlot = `${sessionData.horarioInicio}-${sessionData.horarioFim}`;
+            const conflict = scheduledSessions.find(session => 
+                session.date === sessionData.data && timesOverlap(session.time, newTimeSlot)
+            );
+            
+            if (conflict) {
+                showNotification(`Conflito de horário com ${conflict.patient}!`, 'error');
+                return;
+            }
+            
+            // Adicionar à lista de sessões agendadas
+            scheduledSessions.push({
+                patient: sessionData.paciente,
+                date: sessionData.data,
+                time: newTimeSlot,
+                type: sessionData.tipoSessao
+            });
+            
+            console.log('Nova sessão agendada:', sessionData);
+            
+            // Fechar modal e limpar formulário
+            hideNewSessionForm();
+            form.reset();
+            
+            // Limpar alerta de conflito
+            document.getElementById('schedule-conflict-alert').classList.add('hidden');
+            
+            showNotification('Sessão agendada com sucesso!', 'success');
+        }
+        
+        // Fechar modal ao clicar fora
+        document.getElementById('patient-modal').addEventListener('click', function(event) {
+            if (event.target === this) {
+                hidePatientForm();
+            }
+        });
+        
+        // Fechar modal de nova sessão ao clicar fora
+        document.getElementById('new-session-modal').addEventListener('click', function(event) {
+            if (event.target === this) {
+                hideNewSessionForm();
+            }
+        });
+        
+        // Funções de Login
+        function handleLogin(event) {
+            event.preventDefault();
+            
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            
+            // Simular validação de login
+            if (email && password) {
+                // Mostrar loading no botão
+                const submitBtn = event.target.querySelector('button[type="submit"]');
+                const originalText = submitBtn.textContent;
+                submitBtn.textContent = 'Entrando...';
+                submitBtn.disabled = true;
+                
+                // Simular delay de autenticação
+                setTimeout(() => {
+                    // Esconder tela de login e mostrar dashboard
+                    document.getElementById('login-screen').classList.add('hidden');
+                    document.getElementById('main-app').classList.remove('hidden');
+                    
+                    // Mostrar notificação de boas-vindas
+                    const notification = document.createElement('div');
+                    notification.className = 'fixed top-4 right-4 bg-green-500 text-white px-6 py-3 rounded-lg shadow-lg z-50 fade-in';
+                    notification.textContent = 'Login realizado com sucesso!';
+                    document.body.appendChild(notification);
+                    
+                    setTimeout(() => {
+                        notification.remove();
+                    }, 3000);
+                    
+                    // Restaurar botão
+                    submitBtn.textContent = originalText;
+                    submitBtn.disabled = false;
+                }, 1500);
+            }
+        }
+        
+        function togglePassword() {
+            const passwordInput = document.getElementById('password');
+            const eyeIcon = document.getElementById('eye-icon');
+            
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+                eyeIcon.innerHTML = `
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.878 9.878L3 3m6.878 6.878L21 21"></path>
+                `;
+            } else {
+                passwordInput.type = 'password';
+                eyeIcon.innerHTML = `
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
+                `;
+            }
+        }
+        
+        // Função de logout (pode ser chamada de um botão no header)
+        function logout() {
+            document.getElementById('main-app').classList.add('hidden');
+            document.getElementById('login-screen').classList.remove('hidden');
+            
+            // Limpar formulário
+            document.getElementById('email').value = '';
+            document.getElementById('password').value = '';
+            
+            // Fechar menu do usuário
+            document.getElementById('user-menu').classList.add('hidden');
+        }
+        
+        // Função para toggle do menu do usuário
+        function toggleUserMenu() {
+            const menu = document.getElementById('user-menu');
+            menu.classList.toggle('hidden');
+        }
+        
+        // Fechar menu do usuário ao clicar fora
+        document.addEventListener('click', function(event) {
+            const userMenu = document.getElementById('user-menu');
+            const userButton = event.target.closest('button[onclick="toggleUserMenu()"]');
+            
+            if (!userButton && !userMenu.contains(event.target)) {
+                userMenu.classList.add('hidden');
+            }
+        });
+    </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'98efff47e114f617',t:'MTc2MDUzODQ0Ni4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>

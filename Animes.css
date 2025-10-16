@@ -1,0 +1,30 @@
+.container-onepiece{
+    position: absolute;
+    top: -100px;
+    left: -5px;
+    color: rgb(255, 255, 255);
+    background-color: rgb(155, 1, 1);
+    width: 600px;
+    margin: 100px auto;
+    padding: 12px;
+    border-radius: 25px;
+    text-align: left;
+}
+
+.container-onepiece h1{
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    color:rgb(255, 255, 255);
+    text-align: center;
+}
+
+.container-gachiakuta{
+    position: relative;
+    top: -100px;
+    color: rgb(255, 255, 255);
+    background-color: rgb(158, 156, 8);
+    width: 600px;   
+    margin: 100px auto;
+    padding: 12px;
+    border-radius: 25px;
+    text-align: left;
+}
