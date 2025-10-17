@@ -1,0 +1,28 @@
+body{
+    background-color: aliceblue;
+}
+
+
+#titulo-principal{
+    text-align: center;
+    align-items:center;
+    display: flexbox;
+    background-color: bisque;
+    border-radius: 12px;
+    width: 400px;
+    height: 500px;
+}
+
+
+#titulo-principal h1{
+    color: black;
+    font-family:'Times New Roman', Times, serif;
+    text-align: center;
+}
+
+#titulo-principal p{
+    font-size: 30px;
+    color: red;
+    font-family: 'Times New Roman', Times, serif;
+    text-align: center;
+}
