@@ -7,11 +7,28 @@ header{
 }
 .geral{
     display:flex;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: flex-start;
-    gap: 50px;
+    gap: 10px;
     flex-wrap: wrap;
     padding: 0px;
+    position: absolute;
+}
+
+.extra_info{
+    display: flexbox;
+    background-color: rgb(118, 151, 151);
+    width: 500px;
+    height: auto;
+    padding: 5px;
+    border-radius: 25px;
+    text-align: center;
+    margin: 50px auto;
+    position: relative;
+}
+
+.extra_info ul{
+    text-align: left;
 }
 
 .identidade{
@@ -40,7 +57,21 @@ header{
     gap: 50px;
 }
 
+
+.identidade >p{
+    color: blue;
+}
 .extra{
     text-align: left;
     
+}
+
+a:hover{
+    color:rgb(0, 0, 0);
+    text-decoration: overline;
+}
+
+input:focus{
+    border-color:rgb(0, 0, 0);
+    background-color: rgb(190, 190, 190);
 }
