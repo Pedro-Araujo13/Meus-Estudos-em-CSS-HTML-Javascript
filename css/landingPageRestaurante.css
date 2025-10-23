@@ -1,5 +1,5 @@
 body{
-    background-color: #790000;   
+    background-color: #000000;   
 }
 
 .cabecalho{
@@ -8,7 +8,7 @@ body{
     height: 100vh;
 
     background-image:
-        linear-gradient(to top, rgba(0, 0 ,0 ,0), rgba(0, 0, 0, 0.8)), 
+        linear-gradient(to top, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0.5)), 
         url('../img/VacaEspetoCApa.jpg');
 
     background-size: cover;
@@ -34,7 +34,6 @@ body{
     position: absolute;
     top: auto;
     left: 64.7%;
-    bottom: 92.5%;
     color: white;
     padding: -20px 0;    
 }
@@ -68,4 +67,157 @@ body{
 .salgado{
     color: #FFD700;
     font-family:cursive;
+}
+
+.destaque{
+    color: white;
+    text-align: right;
+    font-size: 35px;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    position: relative;
+    width: 100%;
+    height: 100vh;
+
+    background-image: 
+        linear-gradient(to top, rgba(0,0,0,0), rgba(0,0,0,1)),
+        url('../img/VacaEspetoCloseMaior.jpg');
+    background-size: cover;
+    background-position: top, bottom;   
+}
+
+.card-container{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+.card-um{
+    position: absolute;
+    top: 20%;
+    right: 5%; 
+    width: 400px;
+    height: 100px;
+    background-color: #fff;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease-in-out;
+
+}
+.card-um:hover{
+    transform: translate(-5px);
+    box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+
+}
+.card-imagem img{
+    width: 400px;
+    height: 100px;
+    object-fit: cover;
+}
+
+.card-corpo{
+    padding: 20px;
+
+}
+.card-titulo{
+    font-size: 1.5em;
+    margin-top:0;
+    color: #333;
+}
+.card-texto{
+    font-size: 1em;
+    color: #666;
+    line-height: 1.4;
+}
+
+.card-botao:hover{
+    background-color: #B8860B;
+}   
+.destaque p{
+    position: relative; 
+    top: 200px;
+    right: 100px;
+}
+
+.titulo-destaque{
+    color: white;
+    font-size: 75px;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    position:absolute;
+    top: 5%;
+    right: 5%;
+    text-shadow: 4px 4px 10px rgba(0,0,0,0.6);
+    
+}
+
+.cardapio{
+    color: white;
+    text-align: left;
+    font-size: 35px;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    position: relative;
+    width: 100%;
+    height: 100vh;
+
+    background-image:
+        linear-gradient(to top, rgba(0,0,0,0.1), rgba(0,0,0,1)),
+        url('../img/Cardápio2.jpg');
+    background-size: cover;
+    background-position: top, bottom;
+}
+.titulo-cardapio{
+    color: white;
+    font-size: 75px;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    position:absolute;
+    top: 25%;
+    left: 0%;
+    text-shadow: 4px 4px 10px rgba(0,0,0,0.6);
+
+}
+
+.cardapio p{
+    position: relative;
+    top: 390px;
+}
+
+.sobreNos{
+    color:white;
+    text-align:center;
+    font-size: 35px;
+    font-family:Georgia, 'Times New Roman', Times, serif;
+    position: relative;
+    width: 100%;
+    height: 50vh;
+
+    background-image:
+        linear-gradient(to top, rgba(0,0,0,0.8), rgba(0,0,0,1)),
+        url('../img/restauranteSobreNos.jpg');
+    background-size:cover;
+    background-position: center, top;
+}
+
+.titulo-sobrenos{
+    color: white;
+    font-size: 75px;
+    font-family:Georgia, 'Times New Roman', Times, serif;
+    position: absolute;
+    top: 10%;
+    right:40%;
+    text-shadow: 4px 4px 10px rgba(0,0,0,0.6);
+}
+
+.sobreNos p{
+    position: relative;
+    top: 200px;
+
+}
+
+.geral{
+    color:white;
+}
+
+.rodape{
+    color: white;
+    text-align: center;
 }
