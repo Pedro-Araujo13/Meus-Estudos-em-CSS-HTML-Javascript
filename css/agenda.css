@@ -44,3 +44,29 @@ body{
     color: #555;
     font-weight: bold;
 }
+
+.dia-atual{
+    background-color: #4caf50;
+    color:white;
+    font-weight:bold;
+    border-radius: 5px;
+}
+
+.dia-vazio{
+    background-color: #f9f9f9;
+    color: #ccc;
+}
+
+.dia-evento{
+    background-color: #e6f7ff;
+    position:relative;
+    cursor:pointer;
+}
+
+.evento{
+    display: block;
+    font-size: 0.75em;
+    color: #007bff;
+    margin-top: 2px;
+    font-weight: 600; 
+}

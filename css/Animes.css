@@ -1,8 +1,9 @@
+
 body{
     background-color: rgb(0, 1, 37);
     font-family: 'Times'
-}
 
+}
 .container-geral{
     display:flex;
     justify-content: center;

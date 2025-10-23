@@ -1,0 +1,38 @@
+body{
+    font-family: Arial, Helvetica, sans-serif
+}
+
+.caixa{
+    width: 150px;
+    height: 1050px;
+    background-color: lightblue;
+    border:2px solid #3a0000;
+    margin: 20px;
+}
+.relativa{
+    position: relative;
+    width: 25%;
+    height: 500px;
+    bottom: 800px;
+    right: 800px;
+    background-color: lightgreen;
+    border: 5px;
+    text-align: center;
+}
+
+.absoluta{
+    position:absolute;
+    top: 0px;
+    left: 350px;
+    background-color: lightcoral;
+    width: 25%;
+    height: 250px;
+
+}
+
+.fixed  {
+    position: fixed;
+    bottom: 800px;
+    right: 1000px;
+    background-color: gold;
+}
