@@ -7,9 +7,26 @@ body{
 
 }
 .abrirModal{
-    padding: 10px 20px;
-    font-size : 16px;
-    margin-bottom: 20px;
+    padding: 10 px;
+    font-size : 15px;
+    margin-bottom: 1px;
+
+    display: block;
+    margin-left: auto;
+    margin-right: 20px;
+    
+}
+.botao button{
+    padding: 8px;
+    margin: 5px 0;
+    width: 10%;
+    display:block;
+    margin-left: auto;
+    margin-right: 510px;
+    border-radius: 12px;
+    background: #2ca77a;
+    color: #fff;
+
 }
 
 .modal{
@@ -55,11 +72,12 @@ body{
 input, button{
     padding: 8px;
     margin: 5px 0;
-    width: 50%;
+    width: 10%;
     border: none;
-    border-radius: 5px;
+    border-radius: 12px;
     background: #222;
     color: #fff;
+
 }
 
 button{
@@ -84,12 +102,12 @@ button:hover{
 .bloco h2{
     font-family: 'Poppins';
 }
-
+/* Calendário */
 #calendarioContainer{
     max-width: 800px;
     margin: 20px auto;
     padding: 20px;
-    background-color: #fff;
+    background-color: #ffffff;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0,0,0,0.1);
 }

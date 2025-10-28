@@ -72,7 +72,7 @@ prevBtn.addEventListener('click', () => {
     mesAtual--;
     if (mesAtual < 0){
         mesAtual = 11;
-        anoAtual++;
+        anoAtual--;
     }
     renderizarCalendario();
 });

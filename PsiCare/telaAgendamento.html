@@ -10,7 +10,9 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
 </head>
 <body>
+    <div class="botao">
     <button id="abrirModal" class="abrirModal">Nova Sessão</button>
+        </div>
         <div id="agendamentoModal" class="modal">
             <div class="bloco">
                 <span class="fecharModal" onclick="fecharModal()">&times;</span>
@@ -19,13 +21,10 @@
                         <input type="date" id="data">
                         <input type="time" id="hora">
                         <button onclick="agendar()">Agendar</button>
-                    <div class="agendamento" id="listaAgendamento">
-                        <h3>Agendamentos</h3>
-                    </div>
             </div>
         </div>
         <div id="calendarioContainer">
-            <h3>Estrutura do Calendário (A ser implementado)</h3>
+        
             <div class="calendarioHeader">
                 <button id="prevBtn">&lt;</button>
                 <h2 id="mesAno"> Mês Ano</h2>
