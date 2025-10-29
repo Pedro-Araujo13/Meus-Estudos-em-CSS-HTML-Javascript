@@ -10,7 +10,6 @@ body{
     padding: 10 px;
     font-size : 15px;
     margin-bottom: 1px;
-
     display: block;
     margin-left: auto;
     margin-right: 20px;
@@ -165,3 +164,46 @@ button:hover{
     white-space: nowrap;
     text-overflow: ellipsis
 }
+
+.btn-remover{
+    background: #ff4d4d;
+    color:white;
+    border:none;
+    padding: 0 5px;
+    margin-left: 5px;
+    border-radius: 50%;
+    font-size: 10px;
+    line-height: 10px;
+    cursor:pointer;
+    float:right;
+}
+
+.evento, .evento{
+    position:relative;
+    padding: 6px 8px;
+    border-radius: 6px;
+    margin-top: 4px;
+    background-color: rgba(0,0,0,0.03);
+    overflow:visible;
+    color: #000;
+}
+
+.btn-remover {
+    position: absolute;
+    top: 3px;
+    right: 4px;
+    width: 15px;
+    height: 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 10px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: #ff4d4f;
+    color: #fff;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.2);
+}
+

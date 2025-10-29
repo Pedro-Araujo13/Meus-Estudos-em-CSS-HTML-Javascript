@@ -33,3 +33,42 @@ let pessoa = {
 
 console.log(pessoa);// Saída {nome: 'Pedro', idade: 18, estudante:true}
 console.log(pessoa.nome); //Acessando uma propriedade -> Carlos
+
+let age = 18;
+
+if (idade <18){
+    console.log("Menor de idade");
+}else if (idade === 18){
+    console.log("Acabou de atingir a maior idade");
+}else{
+    console.log("Maior de idade");
+}
+
+let dia = 5;
+let nomeDia;
+
+switch(dia){
+    case 1:
+        nomeDia ="Segunda-Feira";
+        break;
+    case 2:
+        nomeDia ="Terça- Feira";
+        break;
+    case 3:
+        nomeDia = "Quarta-Feira";
+        break;
+    case 4:
+        nomeDia = "Quinta-Feira";
+        break;
+    case 5:
+        nomeDia = "Sexta-Feira";
+        break;
+    case 6:
+        nomeDia = "Sábado";
+        break;
+    case 7:
+        nomeDia = "Domingo";
+        break;
+}
+
+console.log(nomeDia);

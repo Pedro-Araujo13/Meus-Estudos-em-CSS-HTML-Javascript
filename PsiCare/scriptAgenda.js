@@ -1,9 +1,8 @@
-
-
 const modal = document.getElementById('agendamentoModal');
 const abrirModalBtn = document.getElementById('abrirModal');
 
 abrirModalBtn.onclick = function(){
+    limparCamposAgendamento();
     modal.style.display = "block";
 }
 function fecharModal(){
@@ -33,7 +32,6 @@ const nomeMeses = [
 
 function renderizarCalendario(){
     mesAnoEl.textContent = `${nomeMeses[mesAtual]} ${anoAtual}`;
-
     diasDoMesEl.innerHTML = '';
 
     const primeiroDiaMes = new Date(anoAtual, mesAtual, 1).getDay();
@@ -50,20 +48,51 @@ function renderizarCalendario(){
 
         const dataFormatada = `${anoAtual}-${String(mesAtual + 1).padStart(2, '0')}-${String(dia).padStart(2, '0')}`;
 
-        diaEl.innerHTML = `<span>${dia}</span>`;
+        
 
-        if (dia === dataAtual.getDate() && mesAtual === new Date().getMonth() && anoAtual === new Date().getFullYear()){
+        diaEl.setAttribute('data-dia', dataFormatada);
+
+        diaEl.addEventListener('click', () => {
+            document.getElementById('data').value = dataFormatada;
+            modal.style.display = 'block';
+          });
+
+            diaEl.innerHTML = `<span>${dia}</span>`;
+         
+          if (dia === dataAtual.getDate() && mesAtual === new Date().getMonth() && anoAtual === new Date().getFullYear()){
             diaEl.classList.add('dia-atual');
         }
+
         const eventosDoDia = eventos.filter(evento => evento.data === dataFormatada);
         eventosDoDia.forEach(evento => {
             const eventoEl = document.createElement('div');
             eventoEl.classList.add('evento');
-            eventoEl.textContent = `${evento.hora} - ${evento.nome}`;
+            eventoEl.style.position='relative';
+            eventoEl.style.paddingRight = '36px';
+
+            const texto = document.createElement('span');
+            texto.textContent = `${evento.hora} - ${evento.nome}`;
+            eventoEl.appendChild(texto);
+
+            const btnRemover = document.createElement('button');
+            btnRemover.classList.add('btn-remover');
+            btnRemover.type = 'button';
+            btnRemover.title = 'Remover agendamento';
+            btnRemover.innerText = 'x';
+
+
+            btnRemover.addEventListener('click',(ev) => {
+                ev.stopPropagation();
+                if(confirm("Tem certeza que deseja remover este agendamento?")){
+                    removerAgendamento(evento.id);
+                }
+            });
+
+            eventoEl.appendChild(btnRemover)
             diaEl.appendChild(eventoEl);
             
-        });
 
+            });
         diasDoMesEl.appendChild(diaEl);
     }
 }
@@ -96,7 +125,23 @@ function agendar(){
         return;
     }
 
-    eventos.push({nome, data, hora});
+    const conflitoExistente = eventos.some(eventos =>
+        eventos.data === data && eventos.hora === hora
+    );
+
+    if (conflitoExistente){
+        alert("Já existe um agendamento para este dia e hora. Por favor, escolha um horário diferente.");
+        return;
+    }
+
+    const novoId = Date.now();
+
+    eventos.push({
+        id: novoId,
+        nome,
+        data,
+        hora
+    });
 
     eventos.sort((a,b) => (a.data + a.hora).localeCompare(b.data + b.hora));
 
@@ -104,9 +149,31 @@ function agendar(){
     document.getElementById('data').value = '';
     document.getElementById('hora').value = '';
 
-    renderizarCalendario();
-   
+    renderizarCalendario(); 
     fecharModal()
 }
 
+function removerAgendamento(idDoEvento){
+    const eventosAntes = eventos.length;
+
+    eventos = eventos.filter(evento => evento.id !== idDoEvento);
+
+    const eventoDepois = eventos.length;
+
+
+    if (eventosAntes !== eventoDepois){
+        alert("Agentamento removido com sucesso!");
+        renderizarCalendario();
+    
+    }else{
+        alert("Erro: Agendamento não encontrado.");
+    }
+}
+
+function limparCamposAgendamento(){
+    document.getElementById('nome').value = '';
+    document.getElementById('data').value = '';
+    document.getElementById('hora').value = '';
+
+}
 renderizarCalendario();
